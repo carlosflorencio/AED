@@ -28,10 +28,10 @@ public class Utils {
 		return !stk.isEmpty() && stk.pop() == AUX.charAt(AUX.indexOf(c) -1);
 	}
 
+
 	public static <E> Node<E>[] shrink(Node<E>[] hashTable){
 		throw new UnsupportedOperationException();
 	}
-	
 	
 
 }
