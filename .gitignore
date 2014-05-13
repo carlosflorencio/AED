@@ -11,6 +11,8 @@ target/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 *.iws
+.idea/dictionaries/*
+.idea/inspectionProfiles/*
 
 ### Eclipse ###
 *.pydevproject
