@@ -1,6 +1,8 @@
 package problemaSerie2.map;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class HashTable<K, V> {
     private static class HNode<K,V> {
@@ -143,22 +145,15 @@ public class HashTable<K, V> {
     |--------------------------------------------------------------------------
     */
     public Iterator<V> iterator() {
-        return new Iterator<V>() {
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
+        List<V> list = new LinkedList<V>();
 
-            @Override
-            public V next() {
-                return null;
+        for (HNode<K, V> nodeList : table) {
+            for(HNode<K,V> node = nodeList; node != null; node = node.next) {
+                list.add(node.value);
             }
+        }
 
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
+        return list.iterator();
     }
 
     /*

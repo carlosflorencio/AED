@@ -2,6 +2,9 @@ package problemaSerie2.map;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 public class HashTableTest {
@@ -166,7 +169,67 @@ public class HashTableTest {
     |--------------------------------------------------------------------------
     */
     @Test
-    public void testIterator() throws Exception {
+    public void testIteratorWithEmptyIndexes() throws Exception {
+        HashTable<Integer, String> table = new HashTable<Integer, String>();
+
+        Iterator<String> itr = table.iterator();
+
+        assertFalse(itr.hasNext());
+
+        try {
+            itr.next();
+            fail("should throw exception");
+        } catch (NoSuchElementException e) {
+
+        }
+
+    }
+
+    @Test
+    public void testIteratorWithValidValues() throws Exception {
+        HashTable<Integer, String> table = new HashTable<Integer, String>();
+
+        assertNull(table.put(1, "um"));
+        assertNull(table.put(2, "dois"));
+        assertNull(table.put(3, "tres"));
+
+        Iterator<String> itr = table.iterator();
+
+        assertTrue(itr.hasNext());
+
+        assertEquals("um", itr.next());
+        assertEquals("dois", itr.next());
+        assertEquals("tres", itr.next());
+        assertFalse(itr.hasNext());
+
+        try {
+            itr.next();
+            fail("should throw exception");
+        } catch (NoSuchElementException e) {
+
+        }
+    }
+
+    @Test
+    public void testIteratorWithColisions() throws Exception {
+        HashTable<Integer, String> table = new HashTable<Integer, String>(5);
+        assertNull(table.put(10, "dez"));
+        assertNull(table.put(15, "quinze"));
+
+        Iterator<String> itr = table.iterator();
+
+        assertTrue(itr.hasNext());
+
+        assertEquals("quinze", itr.next());
+        assertEquals("dez", itr.next());
+        assertFalse(itr.hasNext());
+
+        try {
+            itr.next();
+            fail("should throw exception");
+        } catch (NoSuchElementException e) {
+
+        }
 
     }
 
