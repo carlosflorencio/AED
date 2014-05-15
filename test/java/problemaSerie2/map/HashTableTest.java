@@ -233,6 +233,59 @@ public class HashTableTest {
 
     }
 
+    @Test
+    public void testIteratorRemove() throws Exception {
+        HashTable<Integer, String> table = new HashTable<Integer, String>();
+
+        assertNull(table.put(1, "um"));
+        assertNull(table.put(2, "dois"));
+        assertNull(table.put(3, "tres"));
+
+        Iterator<String> itr = table.iterator();
+
+        assertTrue(itr.hasNext());
+
+        assertEquals("um", itr.next());
+        assertEquals("dois", itr.next());
+        itr.remove();
+        assertEquals("tres", itr.next());
+        assertFalse(itr.hasNext());
+
+        itr = table.iterator();
+        assertEquals("um", itr.next());
+        assertEquals("tres", itr.next());
+        assertFalse(itr.hasNext());
+    }
+
+    @Test
+    public void testIteratorFailedRemove() throws Exception {
+        HashTable<Integer, String> table = new HashTable<Integer, String>();
+
+        assertNull(table.put(1, "um"));
+        assertNull(table.put(2, "dois"));
+        assertNull(table.put(3, "tres"));
+
+        Iterator<String> itr = table.iterator();
+
+        try {
+            itr.remove();
+            fail("should throw exception");
+        } catch (IllegalStateException e) {
+
+        }
+
+        assertEquals("um", itr.next());
+        assertEquals("dois", itr.next());
+        itr.remove();
+        try {
+            itr.remove();
+            fail("should throw exception");
+        } catch (IllegalStateException e) {
+
+        }
+        assertEquals("tres", itr.next());
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Test Getters

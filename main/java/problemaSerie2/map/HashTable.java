@@ -3,6 +3,7 @@ package problemaSerie2.map;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class HashTable<K, V> {
     private static class HNode<K,V> {
@@ -145,15 +146,52 @@ public class HashTable<K, V> {
     |--------------------------------------------------------------------------
     */
     public Iterator<V> iterator() {
-        List<V> list = new LinkedList<V>();
+        return new Iterator<V>() {
+            HNode<K, V> current = null;
+            HNode<K, V> previous = null;
+            int index = 0;
 
-        for (HNode<K, V> nodeList : table) {
-            for(HNode<K,V> node = nodeList; node != null; node = node.next) {
-                list.add(node.value);
+            @Override
+            public boolean hasNext() {
+                if(current != null) return true;
+
+                if(previous != null && previous.next != null) {
+                    current = previous.next;
+                    return true;
+                }
+
+                while(index < size) {
+                    if(table[index] != null) {
+                        current = table[index];
+                        index++;
+                        return true;
+                    }
+                    index++;
+                }
+                return false;
             }
-        }
 
-        return list.iterator();
+            @Override
+            public V next() {
+                if(hasNext()) {
+                    V aux = current.value;
+                    previous = current;
+                    current = null;
+                    return aux;
+                }
+                throw new NoSuchElementException();
+            }
+
+            @Override
+            public void remove() {
+                if(current == null && previous != null) {
+                    HashTable.this.remove(previous.key); //same method name, so we need so specify
+                    previous = previous.next;
+                    return;
+                }
+                throw new IllegalStateException();
+            }
+        };
     }
 
     /*
