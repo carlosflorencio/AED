@@ -30,7 +30,24 @@ public class Utils {
 
 
 	public static <E> Node<E>[] shrink(Node<E>[] hashTable){
-		throw new UnsupportedOperationException();
+		Node<E>[] halfHashTable = (Node<E>[]) new Node[hashTable.length/2];
+		boolean second =false;
+		
+		for(int i=0,j=0; i<hashTable.length; ++i, ++j){
+			if(i==halfHashTable.length){
+				j=0;
+				second = true;
+			}
+			if(second){
+				hashTable[i].previous.next = halfHashTable[j].next;
+				halfHashTable[j].next.previous = hashTable[i].previous;
+				halfHashTable[j].next = hashTable[i].next;
+				hashTable[i].next.previous = halfHashTable[j];
+			}
+			else
+				halfHashTable[j] = hashTable[i];
+		}
+		return halfHashTable;
 	}
 	
 
