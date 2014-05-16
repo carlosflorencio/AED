@@ -18,10 +18,10 @@ public class Iterables {
 
 					@Override
 					public boolean hasNext() {
-						if(current != null) return true;
+						if(current != null) return true;//exist but wasn't consumed yet
 						if(itin==null){
 							if(it.hasNext()){
-								itin=it.next().iterator();
+								itin=it.next().iterator();//go insight 
 								return hasNext();
 							}
 							else return false;
@@ -31,7 +31,7 @@ public class Iterables {
 								current=itin.next();
 								return true;
 							}
-							else {
+							else {//first insight element finished
 								itin=null;
 								return hasNext();
 							}
@@ -74,16 +74,16 @@ public class Iterables {
 					
 					@Override
 					public boolean hasNext() {
-						if(current != null) return true; // ainda nao foi consumido, existe
-						while(it.hasNext()){//enquanto a src tem elementos
-							prev=aux;//o anterior era o actual da iteração passado
-							current = it.next();//avanço com o actual
-							if(prev != null){//é porque existe no mínimo dois elementos, da para comparar
-								if(prev <= current){
+						if(current != null) return true; //exist but wasn't consumed yet
+						while(it.hasNext()){//while has src elements
+							prev=aux;//previous was actual from past iteration 
+							current = it.next();//increment actual
+							if(prev != null){//exists at least 2 element, can compare
+								if(prev <= current){ //doing well
 									return true;
 								}
 								else {
-									if(it.hasNext()) current=it.next();//avanço ate ser maior
+									if(it.hasNext()) current=it.next();//increment until being greater
 								}
 								
 							}

@@ -10,11 +10,12 @@ public class ListUtils {
 	public static <E> Node<E> merge(Node<E>[] lists, Comparator<E> cmp){
 		MinHeap<E> heap = new MinHeap<E>(100, cmp);
 		int count =0;
-		Node<E> head = new Node<E>(null);
+		Node<E> head = new Node<E>(null);//sentinel node
 		head.previous=head;
 		head.next=head;
 		Node<E> curr=new Node<E>();
 		
+		//build min heap with element of E type
 		while(count<lists.length){
 			for(int i=count; i<lists.length; ++i){
 				curr=lists[i];
@@ -28,7 +29,8 @@ public class ListUtils {
 		}
 		
 		while(!heap.isEmpty()){
-			curr = new Node<E>(heap.poll());
+			curr = new Node<E>(heap.poll());//Node with lower element
+			//add curr to last added
 			head.previous.next=curr;
 			head.previous.next.next=head;
 			head.previous.next.previous=head.previous;
@@ -52,6 +54,7 @@ public class ListUtils {
 	    	while(list.next != list){
 	    		
 	    		if(list.value.next != list.value){
+	    			//add a current sublist to return Node
 	    			sublist = list.value.next;
 					aux = sublist;
 					sublist = sublist.next;
@@ -68,9 +71,9 @@ public class ListUtils {
 				}
 				
 				if(list.next.value == null)
-					list = list.next.next;
+					list = list.next.next; //back on list
 				else 
-					list = list.next;
+					list = list.next; //increasing list element
 	    		
 	    	}
 	  
