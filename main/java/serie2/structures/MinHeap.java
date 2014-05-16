@@ -1,14 +1,17 @@
-package problemaSerie1;
+package serie2.structures;
 
-public class MinHeap<T extends Comparable<T>> {
+import java.util.Comparator;
 
-	private T[] heap;
+public class MinHeap <E> {
+	private E[] heap;
 	private int count;
+	Comparator<E> cmp;
 
 	@SuppressWarnings("unchecked")
-	public MinHeap(int size){
-		this.heap = (T[]) new Comparable[size];
+	public MinHeap(int size, Comparator<E> cmp){
+		this.heap = (E[]) new Comparable[size];
 		this.count = 0;
+		this.cmp=cmp;
 	}
 
 	/*
@@ -16,7 +19,7 @@ public class MinHeap<T extends Comparable<T>> {
 	| Add
 	|--------------------------------------------------------------------------
 	 */
-	public boolean add(T elem) {
+	public boolean add(E elem) {
 		
 		if(this.count == this.heap.length) { //if heap is full
 			return replaceSmallerElement(elem);
@@ -36,7 +39,7 @@ public class MinHeap<T extends Comparable<T>> {
 	| Remove
 	|--------------------------------------------------------------------------
 	 */
-	public T peek() {
+	public E peek() {
 		if (this.isEmpty()) {
 			return null;
 		}
@@ -44,8 +47,8 @@ public class MinHeap<T extends Comparable<T>> {
 		return this.heap[0];
 	}
 
-	public T poll() {
-		T result = peek();
+	public E poll() {
+		E result = peek();
 
 		// remove the root
 		this.count--;
@@ -65,7 +68,7 @@ public class MinHeap<T extends Comparable<T>> {
 	protected void bubbleUp() {
 		int index = this.count-1;
 
-		while (hasParent(index) && (parent(index).compareTo(this.heap[index]) > 0)) {
+		while (hasParent(index) && (cmp.compare(parent(index), this.heap[index])> 0)) {
 			swap(index, parentIndex(index));
 			index = parentIndex(index);
 		}
@@ -76,11 +79,11 @@ public class MinHeap<T extends Comparable<T>> {
 		for(int i = 0 ; hasLeftChild(i); i = smallerChild) {
 			smallerChild = leftIndex(i);
 			
-			if (hasRightChild(i) && this.heap[leftIndex(i)].compareTo(this.heap[rightIndex(i)]) > 0) { //find smaller child
+			if (hasRightChild(i) && (cmp.compare(this.heap[leftIndex(i)], this.heap[rightIndex(i)]))> 0) { //find smaller child
 				smallerChild = rightIndex(i);
 			}
 			
-			if (this.heap[i].compareTo(this.heap[smallerChild]) > 0) { //swap if parent is greater
+			if (cmp.compare(this.heap[i], this.heap[smallerChild])> 0) { //swap if parent is greater
 				swap(i, smallerChild);
 			} else {
 				break;
@@ -95,13 +98,13 @@ public class MinHeap<T extends Comparable<T>> {
 	|--------------------------------------------------------------------------
 	 */
 	protected void swap(int idx1, int idx2) {
-		T tmp = this.heap[idx1];
+		E tmp = this.heap[idx1];
 		this.heap[idx1] = this.heap[idx2];
 		this.heap[idx2] = tmp;
 	}
 	
-	private boolean replaceSmallerElement(T elem) {
-		if(elem.compareTo( peek()  ) > 0) { //is this elem is greater than the smaller element in the heap?
+	private boolean replaceSmallerElement(E elem) {
+		if(cmp.compare(elem, peek())> 0) { //is this elem is greater than the smaller element in the heap?
 			
 			this.heap[0] = elem; //replace the greater leaf with the elem
 			
@@ -138,7 +141,7 @@ public class MinHeap<T extends Comparable<T>> {
 		return rightIndex(i) < this.count;
 	}
 
-	protected T parent(int i) {
+	protected E parent(int i) {
 		return this.heap[parentIndex(i)];
 	}
 

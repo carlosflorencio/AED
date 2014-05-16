@@ -1,5 +1,6 @@
 package serie2;
 
+
 import static org.junit.Assert.assertTrue;
 import static serie2.ListUtils.merge;
 
@@ -39,11 +40,11 @@ public class MergeTest {
 		assertTrue(ListUtilTest.isSorted(merge, CMP_NATURAL_ORDER));
 		Node<Integer> aux=merge.next;
         for(int i=0; i<elements.size();i++){
-        	
+    
         	assertTrue(elements.get(i).equals(aux.value));
         	aux=aux.next;
         }
-		}
+	}
 	
 	@Test
 	public void merge_lists(){

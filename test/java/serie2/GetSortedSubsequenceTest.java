@@ -45,6 +45,7 @@ public class GetSortedSubsequenceTest  extends IterablesTest {
 			List<Integer> subList=null;
 			for(int i=0; i<SIncreasing.size();i++){
 				subList=SIncreasing.subList(i, SIncreasing.size());
+				//System.out.println(getSortedSubsequence(subList).iterator().next());
 				assertIterableEquals(subList, getSortedSubsequence(subList));
 			}
 		}
