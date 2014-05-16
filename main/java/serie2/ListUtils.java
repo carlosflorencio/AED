@@ -39,47 +39,70 @@ public class ListUtils {
 	}*/
 	
 	public static <E> Node<E> merge(Node<E>[] lists, Comparator<E> cmp){
-																																																																int count = 0;
+		int count = 0;
 		Node<E> head = new Node<E>(null);
 		head.previous=head;
 		head.next=head;
 		Node<E> curr=null;
+		if(lists[0]==null) return head;
 		
 		while(count<lists.length){
-				bubbleUp(lists, cmp);
-				curr=lists[count];
-				if(curr==null) return head;
-				if(curr.value !=null){
-					head.previous.next=curr;
-					head.previous.next.next=head;
-					head.previous.next.previous=head.previous;
-					head.previous=head.previous.next;
+			buildMinHeap(lists, cmp, lists.length-1);
+			curr=lists[count];
+			if(lists[count].value !=null){
+				if(lists[count].next==null){
+					count++;
+					//if(count<lists.length)
+						//lists[0]=lists[count];
+				}
+				else{
 					lists[count]=lists[count].next;
 				}
-				else
-					count++;
-				
+				System.out.println(curr.value);
+				head.previous.next=curr;
+				head.previous.next.next=head;
+				head.previous.next.previous=head.previous;
+				head.previous=head.previous.next;
+					
+			}
+			else{
+				count++;
+				//if(count<lists.length)
+					//lists[0]=lists[count];
+			}
 		}
 		
 		return head;
 	}
 	
-	private static <E> void bubbleUp(Node<E>[] list, Comparator<E> cmp) {
+	
+	
+	private static <E> void buildMinHeap(Node<E>[] list,Comparator<E> cmp,int size){
+		int parentIndex = (size-1)/2;
 		
-			int index = list.length-1;
-			int parentIndex=(index-1)/2;
-			if(list[0]!=null &&list[parentIndex].value!=null){
-			while(index>0 && (cmp.compare(list[parentIndex].value, list[index].value)> 0)){
-				swap(list, index, parentIndex);
-				index = parentIndex;
-				parentIndex=(index-1)/2;
-			}}
+		for(;parentIndex >=0; parentIndex--){
+			minHeapify(list,parentIndex,size,cmp);
+		}
 	}
 	
+	private static <T> void minHeapify(Node<T>[] list, int i, int n, Comparator<T> cmp){//order to be min-heap
+		int left = 2 * i + 1;
+	    int right = 2 * i + 2;
+	    int lower = i;
+
+	    if( left < n &&(cmp.compare(list[left].value, list[lower].value)<=0))
+	        lower = left;
+	    if( right < n &&(cmp.compare(list[right].value, list[lower].value)<=0))
+	        lower = right;
+	    if( lower == i ) return;
+	    swap(list,lower,i);
+	    minHeapify(list, lower, n, cmp);  
+	}
+
 	private static <E> void swap(Node<E>[] list, int idx1, int idx2){
-		E tmp = list[idx1].value;
-		list[idx1].value = list[idx2].value;
-		list[idx2].value = tmp;
+		Node<E> aux = list[idx2];
+		list[idx2] = list[idx1];
+		list[idx1] = aux;
 	}
 
 
