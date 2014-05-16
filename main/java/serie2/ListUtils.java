@@ -54,7 +54,7 @@ public class ListUtils {
 					head.previous.next.next=head;
 					head.previous.next.previous=head.previous;
 					head.previous=head.previous.next;
-					lists[count]=curr.next;
+					lists[count]=lists[count].next;
 				}
 				else
 					count++;
@@ -83,38 +83,43 @@ public class ListUtils {
 	}
 
 
-    public static Node<String> interleaved( Node< Node < String >> list ) {
-    	Node<String> head = new Node<String>(null);
-    	head.next=head;
-    	head.previous=head;
-    	Node<Node<String>> currentList=list.next;
-    	
-		if(currentList.value==null) return head;
-		
-		while(list.next != list){
-			Node<String> sublist = currentList.value.next;
-			if(sublist!= list.value){
-				head.previous.next=sublist;
-				head.previous.next.next=head;
-				head.previous.next.previous=head.previous;
-				head.previous=head.previous.next;
-			}
-			
-			if(list.value != null && list.value.next == list.value){
-				list.previous.next = list.next;
-				list.next.previous = list.previous;
-			}
-			
-			if(sublist != null){
-				list=list.next;
+ 
+	 public static Node<String> interleaved( Node< Node < String >> list ) {
+		 	Node<String> head = new Node<String>(null);
+	    	head.next=head;
+	    	head.previous=head;
+	    	Node<String> sublist;
+	    	Node<String> aux;
+	    	
+	    	if(list.next==list) return head; //means empty list
+	    	
+	    	list=list.next; //clean a first list's element
+	    	
+	    	while(list.next != list){
+	    		
+	    		if(list.value.next != list.value){
+	    			sublist = list.value.next;
+					aux = sublist;
+					sublist = sublist.next;
+					list.value.next = sublist;
+					sublist.previous= list.value;
+					head.previous.next=aux;
+					head.previous.next.next=head;
+					head.previous.next.previous=head.previous;
+					head.previous=head.previous.next;
+	    		}
+	    		if(list.value != null && list.value.next == list.value){
+					list.previous.next = list.next;
+					list.next.previous = list.previous;
+				}
 				
-			}
-			else{
-				list=list.next.next;
-				
-			}
-		}
-    	return head;
-    }
-
+				if(list.next.value == null)
+					list = list.next.next;
+				else 
+					list = list.next;
+	    		
+	    	}
+	  
+			return head;
+	 }
 }
