@@ -12,5 +12,16 @@ public class TreeUtils {
 		}
 		return root.value;
 	}
+	
+	public static int countLeavesAtLevel(Node<Integer> root, int k){
+		int count = 0;
+		if(root==null) return count;
+		if(k==0 && root.left==null && root.right==null)
+			return count+1;
+		k--;
+		count+=countLeavesAtLevel(root.left, k);
+		count+=countLeavesAtLevel(root.right,k);
+		return count;
+	}
 
 }
