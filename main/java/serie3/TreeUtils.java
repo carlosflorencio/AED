@@ -23,5 +23,27 @@ public class TreeUtils {
 		count+=countLeavesAtLevel(root.right,k);
 		return count;
 	}
+	
+	public static <E> boolean isBalanced(Node<E> root){
+		if(root==null)
+	        return true;  //tree is empty
+		
+		int lh = height(root.left);
+	    int rh =height( root.right);
+	    
+	    return abs(rh-lh)<2;
+	}
+	
+	private static <E> int height(Node<E> root) {
+		if (root == null)
+			return -1;
+		int l = height(root.left);
+		int r = height(root.right);
+		return (l > r) ? l + 1 : r + 1;
+	}
+	
+	private static int abs(int a) {
+	    return (a <= 0) ? 0 - a : a;
+	}
 
 }
