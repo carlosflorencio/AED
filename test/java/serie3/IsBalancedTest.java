@@ -25,6 +25,10 @@ public class IsBalancedTest {
 		boolean res = TreeUtils.isBalanced(t.getRoot());
 		
 		assertFalse(res);
+		
+		t.balance();
+		res=TreeUtils.isBalanced(t.getRoot());
+		assertTrue(res);
 	}
 	
 	@Test
