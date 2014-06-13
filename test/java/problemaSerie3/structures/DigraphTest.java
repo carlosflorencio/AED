@@ -19,8 +19,14 @@ public class DigraphTest {
         assertTrue(g.insertVertex("test",2));
         assertTrue( g.insertVertex("test",-3) );
         assertEquals(3, g.getNVertexes());
+    }
+
+    @Test
+    public void testInsertDuplicateVertex() throws Exception {
+        Digraph<String> g = new Digraph<String>(false);
+
+        assertTrue(g.insertVertex("test", 1));
         assertFalse( g.insertVertex("test",1) );
-        assertEquals(3, g.getNVertexes());
     }
 
     @Test

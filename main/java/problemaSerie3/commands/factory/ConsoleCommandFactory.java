@@ -1,6 +1,7 @@
 package problemaSerie3.commands.factory;
 
 
+import problemaSerie3.commands.ClosenessConsoleCommand;
 import problemaSerie3.commands.ExitConsoleCommand;
 import problemaSerie3.commands.HelpConsoleCommand;
 
@@ -8,7 +9,8 @@ public class ConsoleCommandFactory {
 
     private static ConsoleCommand[] commands = { //add commands here
             new HelpConsoleCommand(),
-            new ExitConsoleCommand()
+            new ExitConsoleCommand(),
+            new ClosenessConsoleCommand()
     };
 
     /**
