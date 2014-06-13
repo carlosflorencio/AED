@@ -128,8 +128,8 @@ public class HashTable<K, V> {
 
     @SuppressWarnings("unchecked")
     private void rehash() {
-        int oldSize = this.size;
-        this.size *= 2;
+        int oldSize = this.table.length;
+        this.size = (oldSize << 1) + 1;
         HNode<K,V>[] newArray = new HNode[size];
 
         for(int i=0; i< oldSize; ++i) {

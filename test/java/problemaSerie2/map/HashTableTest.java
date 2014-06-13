@@ -147,7 +147,9 @@ public class HashTableTest {
 
         assertNull(table.put(1, "um"));
 
-        assertTrue(0.5f == table.getCurrentFactor());
+        assertTrue(0.33333334f == table.getCurrentFactor());
+
+        assertEquals("um", table.get(1));
     }
 
     @Test
@@ -160,7 +162,11 @@ public class HashTableTest {
 
         assertNull(table.put(3, "tres"));
 
-        assertTrue(0.3f == table.getCurrentFactor());
+        assertTrue(0.27272728f == table.getCurrentFactor());
+
+        assertEquals("um", table.get(1));
+        assertEquals("dois", table.get(2));
+        assertEquals("tres", table.get(3));
     }
 
     /*
