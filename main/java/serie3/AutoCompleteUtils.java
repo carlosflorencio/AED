@@ -31,19 +31,20 @@ public class AutoCompleteUtils {
     
     private static void insertWord(TNode root, String word){
     	int offset = 'a';
-        TNode curNode = root;
-        
-        for (int i = 0; i < word.length(); i++)
-        {
-            if (curNode.ways[word.charAt(i)-offset] == null)
-                curNode.ways[word.charAt(i)-offset] = new TNode(word.charAt(i));
-            curNode = curNode.ways[word.charAt(i)-offset];
-        }
-        curNode.isWord = true;
+    	         TNode curNode = root;
+    	         
+    	         for (int i = 0; i < word.length(); i++)
+    	         {
+    	             if (curNode.ways[word.charAt(i)-offset] == null)
+    	                 curNode.ways[word.charAt(i)-offset] = new TNode(word.charAt(i));
+    	             curNode = curNode.ways[word.charAt(i)-offset];
+    	        }
+    	      curNode.isWord = true;
     }
     
     
     public static TNode longestWithPrefix(TNode root, String prefix){
+    	if(prefix==null || root==null) return null;
     	
         int offset = 'a';
         TNode curNode = root;
@@ -59,7 +60,7 @@ public class AutoCompleteUtils {
     
     public static int countPossibleWords(TNode root, String prefix){
     	
-    	if(prefix==null) return 0;
+    	if(prefix==null || root == null) return 0;
         int offset = 'a';
         TNode curNode = root;
         
@@ -88,74 +89,4 @@ public class AutoCompleteUtils {
     	}
 		return c;
 	}
-
-	static boolean find(TNode root, String word)
-    {
-        char[] letters = word.toCharArray();
-        int l = letters.length;
-        int offset = 97;
-        TNode curNode = root;
-        
-        int i;
-        for (i = 0; i < l; i++)
-        {
-            if (curNode == null)
-                return false;
-            curNode = curNode.ways[letters[i]-offset];
-        }
-        
-        if (i == l && curNode == null)
-            return false;
-        
-        if (curNode != null && !curNode.isWord)
-            return false;
-        
-        return true;
-    }
-    
-    
-    static void printTree(TNode root, int level, char[] branch)
-    {
-        if (root == null)
-            return;
-        
-        for (int i = 0; i < root.ways.length; i++)
-        {
-            branch[level] = root.letter;
-            printTree(root.ways[i], level+1, branch);    
-        }
-        
-        if (root.isWord)
-        {
-            for (int j = 1; j <= level; j++)
-                System.out.print(branch[j]);
-            System.out.println();
-        }
-    }
-    
-    public static void main(String[] args) throws IOException
-    {
-        TNode tree = new TNode();
-        tree = loadWordsFromFile(tree, "C:\\Users\\Oksana\\Documents\\ENSINO\\ISEL\\4 Semestre\\AED\\Repositorio\\main\\java\\words.txt");
-        
-        //String[] words = {"an", "ant", "all", "allot", "alloy", "aloe", "are", "ate", "be"};
-        /*for (int i = 0; i < words.length; i++)
-            insertWord(tree, words[i]);*/
-        
-        char[] branch = new char[50];
-        printTree(tree, 0, branch);
-        
-        String searchWord = "setas";
-        if (find(tree, searchWord))
-        {
-            System.out.println("The word was found");
-        }
-        else
-        {
-            System.out.println("The word was NOT found");
-        }
-        
-        TNode aux= longestWithPrefix(tree, "b");
-        System.out.println(countPossibleWords(tree, "beberes"));
-    }
 }

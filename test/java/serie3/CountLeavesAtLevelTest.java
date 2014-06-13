@@ -20,7 +20,7 @@ public class CountLeavesAtLevelTest {
 	}
 	
 	@Test
-	public void countLeavesAtLevel_withIncreasingValuesTree(){
+	public void testCountLeavesAtLevel_withIncreasingValuesTree(){
 		Tree<Integer> t =  increasingSequence(9);
 		int res = TreeUtils.countLeavesAtLevel(t.getRoot(), 8);
 		int res1 = TreeUtils.countLeavesAtLevel(t.getRoot(), 9);
@@ -30,21 +30,21 @@ public class CountLeavesAtLevelTest {
 	}
 	
 	@Test
-	public void countLeavesAtLevel_withoutValues(){
+	public void testCountLeavesAtLevel_withoutValues(){
 		Tree<Integer> t = new Tree<Integer>();
 		int res = TreeUtils.countLeavesAtLevel(t.getRoot(), 0);
 		assertEquals(res, 0);
 	}
 	
 	@Test 
-	public void countLeavesAtLevel_withOneElement(){
+	public void testCountLeavesAtLevel_withOneElement(){
 		Tree<Integer> t = new Tree<Integer>(new Node<Integer>(5));
 		int res = TreeUtils.countLeavesAtLevel(t.getRoot(), 0);
 		assertEquals(res, 1);
 	}
 	
 	@Test
-	public void contLeavesAtLevel_withSpecificTree(){
+	public void testCountLeavesAtLevel_withSpecificTree(){
 		Tree<Integer> t = new Tree<Integer>(new Node<Integer>(8));
 		t.insert(3);
 		t.insert(1);
