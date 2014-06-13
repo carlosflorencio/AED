@@ -78,6 +78,19 @@ public class Digraph<D> {
 
     /*
     |--------------------------------------------------------------------------
+    | Degree
+    |--------------------------------------------------------------------------
+    */
+    public String degree(int pNumber) {
+        GNode<Vertex<D>, Edge> v;
+
+        if((v = head.outList(pNumber)) == null) return null;
+
+        return v.elem.data + " -> " + v.elem.inDeg;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Closeness
     |--------------------------------------------------------------------------
     */
@@ -114,6 +127,7 @@ public class Digraph<D> {
             if(reach[v.number -1] != 0) {
                 connectedVertexes++;
                 res += reach[v.number-1];
+                System.out.println(v.elem.data + " (" + reach[v.number-1] + ")");
             }
         }
 

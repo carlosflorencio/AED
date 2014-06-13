@@ -8,16 +8,17 @@ import problemaSerie3.structures.Digraph;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-public class ClosenessConsoleCommand extends ConsoleCommand {
+public class DegreeConsoleCommand extends ConsoleCommand {
 
-    public ClosenessConsoleCommand() {
-        super(Pattern.compile("c", Pattern.CASE_INSENSITIVE), "c - Closeness");
+    public DegreeConsoleCommand() {
+        super(Pattern.compile("d", Pattern.CASE_INSENSITIVE), "d - Degree");
     }
 
     @Override
     public void run(String cmd) {
 
-        System.out.println("vertice closeness");
+        System.out.println("vertice degree");
+
 
         Iterator<Integer> itr = Centrality.getMap().iterator();
         Digraph<Friend> graph = Centrality.getGraph();
@@ -25,7 +26,7 @@ public class ClosenessConsoleCommand extends ConsoleCommand {
         while(itr.hasNext()) {
             int vertex = itr.next();
 
-            System.out.println(graph.closeness(vertex));
+            System.out.println(graph.degree(vertex));
         }
 
     }

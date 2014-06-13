@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class ExitConsoleCommand extends ConsoleCommand {
 
     public ExitConsoleCommand() {
-        super(Pattern.compile("e", Pattern.CASE_INSENSITIVE), "Exit the app");
+        super(Pattern.compile("e", Pattern.CASE_INSENSITIVE), "e - exit the app");
     }
 
     @Override

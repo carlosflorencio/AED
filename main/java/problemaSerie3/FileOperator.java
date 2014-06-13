@@ -47,34 +47,6 @@ public class FileOperator {
         }
     }
 
-    public static void testMap(String filename, HashTable<String, Integer> map) throws IOException {
-        BufferedReader reader = null;
-
-        try {
-            String line;
-            reader = new BufferedReader( new FileReader( filename ) );
-
-            while((line = reader.readLine()) != null) {
-                String[] numbers = line.split("\\s+");
-
-                int vertex = map.get(numbers[0]);
-                int edge = map.get(numbers[1]);
-            }
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            //Close stream
-            try {
-                if(reader != null)
-                    reader.close();
-            } catch(IOException e) {
-                //Failed to close? hum
-                throw e;
-            }
-
-        }
-    }
-
     public static HashTable<String, Integer> loadTable(String filename) throws InvalidFileFormatException, IOException {
         BufferedReader reader = null;
         HashTable<String, Integer> map = new HashTable<>(2000000, 2); //we cannot let the table rehash because something is wrong
