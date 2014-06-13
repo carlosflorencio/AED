@@ -46,6 +46,13 @@ public class MinHeap <E> {
 
 		return this.heap[0];
 	}
+	
+	public E getLast(){
+		E result = this.heap[this.count];
+		this.heap[count]=null;
+		this.count--;
+		return result;
+	}
 
 	public E poll() {
 		E result = peek();
