@@ -3,7 +3,7 @@ package problemaSerie3;
 import problemaSerie2.map.HashTable;
 import problemaSerie3.entities.Friend;
 import problemaSerie3.exceptions.InvalidFileFormatException;
-import problemaSerie3.structures.Digraph;
+import problemaSerie3.structures.Graph;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,9 +11,9 @@ import java.io.IOException;
 
 public class FileOperator {
 
-    public static Digraph<Friend> loadGraph(String filename, HashTable<String, Integer> map) throws IOException, InvalidFileFormatException {
+    public static Graph<Friend> loadGraph(String filename, HashTable<String, Integer> map) throws IOException, InvalidFileFormatException {
         BufferedReader reader = null;
-        Digraph<Friend> graph = new Digraph<>(false); //not a directional graph
+        Graph<Friend> graph = new Graph<>(map.getSize(), false); //not a directional graph
 
         try {
             String line;
@@ -51,7 +51,7 @@ public class FileOperator {
         BufferedReader reader = null;
         HashTable<String, Integer> map = new HashTable<>(2000000, 2); //we cannot let the table rehash because something is wrong
         Integer res;
-        int count = 1;
+        int count = 0;
         try {
             String line;
 
