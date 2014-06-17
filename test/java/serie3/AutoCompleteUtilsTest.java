@@ -15,7 +15,7 @@ import serie3.structures.TNode;
 
 public class AutoCompleteUtilsTest {
 	List<String> words = new ArrayList<String>();
-	String filename= "C:\\Users\\Oksana\\Documents\\ENSINO\\ISEL\\4 Semestre\\AED\\Repositorio\\main\\java\\test.txt";
+	String filename= "C:\\Users\\Oksana\\Documents\\ENSINO\\ISEL\\4 Semestre\\AED\\Repositorio\\test\\java\\test.txt";
 	
 	public void createStream() throws IOException{
 		words.add("ana");
